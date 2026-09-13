@@ -13,8 +13,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-DATA_PATH = Path("datasets/cleaned-data/HR-Employee-Attrition-cleaned.csv")
-MODEL_PATH = Path("models/employee_attrition_pipeline.joblib")
+PROJECT_ROOT = Path(__file__).resolve().parent
+DATA_PATH = PROJECT_ROOT / "datasets" / "cleaned-data" / "HR-Employee-Attrition-cleaned.csv"
+MODEL_PATH = PROJECT_ROOT / "models" / "employee_attrition_pipeline.joblib"
 TARGET = "AttritionBinary"
 
 
