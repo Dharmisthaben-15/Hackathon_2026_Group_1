@@ -1,6 +1,6 @@
 # HACKATHON GROUP 1: PEOPLEPULSE EMPLOYEE ATTRITION ANALYSIS
 
-**Project XYZ** is a comprehensive data analysis tool designed to streamline data exploration, analysis, and visualisation. The tool supports multiple data formats and provides an intuitive interface for both novice and expert data scientists.
+This project explores what drives employee attrition, using exploratory data analysis, hypothesis testing and machine learning to identify key patterns of behaviour to predict at-risk employees. The findings for this project are presented in a data app with a user interface (UI). This project will perform critical data analysis, generate useful insights, and deliver data-driven recommendations.
 
 # ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
@@ -53,7 +53,14 @@ The raw data includes the following columns:
 
 ## Business Requirements
 
-* Describe your business requirements
+* This project addresses the following business problem: A company is experiencing employee attrition, but has no systematic way of identifying what’s driving it or where it’s concentrated. Without this insight, HR can only react to resignations individually, rather than addressing the underlying factors causing them or focusing retention efforts where they’re needed most.
+
+* The business requirements are as follows:
+
+| **Business Requirement** | **Description** |
+| ------------------------ | --------------- |
+| **BR1 - Reduce Employee Attrition** | Identify the key factors associated with employees leaving the organisation to support the development of effective employee retention strategies. |
+| **BR2 - Improve Employee Retention in High-Risk Departments and Job Roles** | Identify departments and job roles with relatively higher attrition rates so that HR can prioritise targeted retention initiatives. |
 
 ## Hypotheses
 
@@ -61,12 +68,32 @@ The hypotheses that we will be examining are:
 
 | **Hypothesis** | **Hypothesis Description** |
 | -------------- | -------------------------- |
-| **H1** |  |
-| **H2** |  |
-| **H3** |  |
+| **H1** | **Job Role and Employee Attrition**: Attrition differs significantly between job roles  |
+| **H2** | **Promotion History and Employee Attrition**: Employees with limited promotion history have higher attrition |
+| **H3** | **Monthly Income and Employee Attrition**: Lower-income employees have higher attrition rates |
+| **H4** | **Overtime and Employee Attrition**: Employees who work overtime have a higher attrition rate than employees who do not |
+| **H5** | **Lower Job Satisfaction and Employee Attrition**: Employees with lower job satisfaction have higher attrition rates than employees with higher job satisfaction |
+| **H6** | **Business Travel and Employee Attrition**: Attrition differs by travel frequency, with frequent travelers having higher attrition |
+| **H7** | **Distance from Home and Employee Attrition**: Employees who leave live farther from work |
+| **H8** | **Years at Company and Employee Attrition**: Employees in their first few years at the company have higher attrition than long-serving employees |
+| **H9** | **Stock Options and Employee Attrition**: Employees with fewer stock options are more likely to leave |
+| **H10** | **Department and Employee Attrition**: Attrition differs significantly between departments |
 
 
 ### How will the hypotheses be validated? 
+
+| **Hypothesis** | **How Validated?** |
+| -------------- | -------------------------- |
+| **H1** | Horizontal Bar Chart and Chi-Squared Test of Independence |
+| **H2** | Boxplot and Mann-Whitney U Test |
+| **H3** | Bar Chart and Mann-Whitney U test |
+| **H4** | Heatmap and Chi-Squared Test of Independence |
+| **H5** | Bar Chart and Chi-Squared Test of Independence |
+| **H6** | Bar Chart and Chi-Squared Test of Independence |
+| **H7** | Boxplot and Mann-Whitney U Test |
+| **H8** | Boxplot and Mann-Whitney U Test |
+| **H9** | Bar Chart and Chi-Squared Test of Independence |
+| **H10** | Bar Chart and Chi-Squared Test of Independence |
 
 ## Project Plan
 
@@ -80,15 +107,7 @@ The hypotheses that we will be examining are:
     * **In Review**: Tickets ready for approval for completion
     * **Done**: Tickets approved and merged
 
-## The rationale to map the business requirements to the Data Visualisations
-
-* List your business requirements and a rationale for mapping them to the Data Visualisations
-
 ## Analysis techniques used
-* List the data analysis methods used and explain limitations or alternative approaches.
-* How did you structure the data analysis techniques? Justify your response.
-* Did the data limit you, and did you use an alternative approach to meet these challenges?
-* How did you use generative AI tools to help with ideation, design thinking and code optimisation?
 
 ### ETL Analysis Techniques
 * **Descriptive Statistics**: analysed the mean, median, standard deviation of numerical columns using `.describe()`.
@@ -98,8 +117,27 @@ The hypotheses that we will be examining are:
 * **Feature Engineering**: Extracted new feature columns, `AgeBracket`, `Tenure`, `AnnualIncome`, `SatisfactionScore` and encoded `Attrition` to make a new column `AttritionBinary`.
 
 ### EDA and Data Visualisations Analysis Techniques
+* **Descriptive Statistics**: analysed the mean, median, min, max
+* **Hypothesis Testing**: carried out different statistical tests (Mann-Whitney U test and Chi-Squared test) and assessed the appropriate coefficient alongside the p-value to reject or uphold the null hypothesis in each case.
+* **Visualisation**: created a number of visualisation types to assist in exploratory data analysis and hypothesis testing:
+    * horizontal bar chart
+    * bar chart
+    * heatmap
+    * boxplot
 
 ### Machine Learning Analysis Techniques
+* **Classification Model**: trained Logistic Regression classification model to how effective it was in predicting the target variable `AttritionBinary`.
+* **Train Test Split**: split the dataset into training and test sets using `scikit-learn`.
+* **Preprocessing**:
+    * for numerical columns: `SimpleImputer(strategy="median")` and `StandardScaler`
+    * for categorical columns: `SimpleImputer(strategy="most_frequent")` and `OneHotEncoder`
+* **Pipeline**: combined the preprocessing step with the `LogisticRegression` model in a pipeline, before fitting this pipeline to the training data
+* **Evaluation**: evaluated the model using four metrics
+    * Accuracy
+    * ROC-AUC
+    * Recall
+    * Precision
+    * F1 Score
 
 ## Ethical Considerations
 Despite this being a synthetic dataset, there are still ethical considerations we need to take into consideration:
@@ -121,63 +159,130 @@ Despite this being a synthetic dataset, there are still ethical considerations w
 * **Proxy Bias**: Even if you were to remove protected characteristics out of a prediction model, there might be correlations that allow a model to essentially develop biases without explicitly being trained with these characteristics as features.
 * **UK GDPR and Data Protection Act 2018**: Were this real employee data, processing would fall under UK GDPR and the Data Protection Act 2018. The organisation would be requried to inform employees of how their data is used (the right to be informed), collect only what's genuinely necessary for the stated purpose, retain the data no longer than needed, and give employees the right to object to decisions made about them through automated processing. 
 
-## Dashboard Design
+## Dashboard
 
-* Feel free to delete this section if this is a data visualisation only (unit 1 or 2) project submission.
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
-* Later, during project development, you may revisit your dashboard plan to update a feature (for example, at the beginning of the project, you were confident you would use a given plot to display an insight, but later you used another plot type).
-* How were data insights communicated to technical and non-technical audiences?
-* Explain how the dashboard was designed to communicate complex data insights to different audiences. 
+* The **PeoplePulse** dashboard brings historical workforce patterns and model-generated risk signals into one place. It helps stakeholders decide where to investigate first, what questions to ask, and which retention themes may need attention.
 
-## Deployment (optional)
+### Overview Page
+* The overview page provides an organisation-level summary and helps users identify workforce hotspots.
 
-* If this is a Unit 3 Streamlit, Power BI or Tableau Public project, then you can include a link here and explain how you hosted the dashboard.
+| **Visualisation** | **What Does This Show?** | **Description** |
+| ------------------ | ----------------------- | --------------- |
+| **KPI Card** | Employees | The number of employee records currently represented in the dataset. |
+| **KPI Card** | Historical Attrition | The proportion of records where AttritionBinary indicates that the employee left. This describes the historical dataset, not a forecast. |
+| **KPI Card** | High-Risk Profiles | The number of records with a model probability at or above the configured high-risk threshold. |
+| **KPI Card** | Risk Bands | Shows the viewer what the different risk banks are. |
+| **Bar Chart** | Hotspot Chart - Attrition by Job Role | Compare historical attrition rates across job roles to decide where deeper investigation may be useful. | 
+| **Bar Chart** | Hotspot Chart - Attrition by Department | Compare historical attrition rates across departments to decide where deeper investigation may be useful. | 
 
-### Heroku (optional)
+### Risk Triage Page
 
-* The App live link is: https://YOUR_APP_NAME.herokuapp.com/ 
-* Set the `.python-version` Python version to a [Heroku-22](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-* The project was deployed to Heroku using the following steps.
+* Risk Triage lets **authorised** users narrow the dataset using three filters.
 
-1. Log in to Heroku and create an App
-2. From the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App at the top of the page to access your App.
-6. If the slug size is too large, then add large files not required for the app to the `.slugignore` file.
+| **Filter** | **What It Changes** | **Example Questions** |
+| ---------- | ------------------- | --------------------- |
+| Department | Limits records to one department. | Which profiles should HR review within Sales? |
+| Job Role | Limits roles available within the chosen department. | Is a pattern concentrated in a particular role? |
+| Risk Band | Low, Medium, or High model-risk groups. | How many high-risk profiles are in this selection? |
+
+* Once the filters have been selected, it shows three KPI cards with high-level summaries on the data selected, as well as a searchable table of all matching employees. 
+
+| **Visualisation** | **What Does This Show?** | **Description** |
+| ------------------ | ----------------------- | --------------- |
+| **KPI Card** | Matching Employees | Number of records matching the current filters. |
+| **KPI Card** | Average Predicted Risk | Average model probability for the current selection. |
+| **KPI Card** | High-Risk in Selection | Count of records in the High band within the filtered selection. |
+
+### Hypotheses and Retention Actions Page
+
+* This page connects observed data patterns to practical questions and possible retention actions.
+
+#### Job Role
+* Compare role-level attrition rates and investigate workload, onboarding, leadership, and progression differences.
+
+#### Income and Fariness
+* Use pay patterns to prompt benchmarking and transparent reward discussions. Do not infer personal performance from income.
+
+#### Progression
+* Explore whether limited promotion opportunities may justify career check-ins, mentoring, or development pathways.
+
+#### Sustainable Work
+* Use overtime patterns to investigate staffing, workload, flexibility, and work-life balance.
+
+*The page presents hypotheses, not proven causes. Treat each result as a reason to investigate with qualitative evidence.*
+
+### Deployment
+
+* The app has been deployed via Heroku and the link is: https://people-pulse-3f8aa97595aa.herokuapp.com/
 
 ## Unfixed Bugs
-
-* Please list any unfixed bugs and explain why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a significant variable to consider, paucity of time and difficulty understanding implementation are not valid reasons to leave bugs unfixed.
-* Did you recognise gaps in your knowledge, and how did you address them?
-* If applicable, include evidence of feedback received (from peers or instructors) and how it improved your approach or understanding.
+* In the Jupyter Notebooks, we have found that sometimes the visualisations don't show up if you click *Run All*. If this happens, please manually run the cell again and the plots should appear.
 
 ## Development Roadmap
 
-* What challenges did you face, and what strategies were used to overcome these challenges?
-* What new skills or tools do you plan to learn next based on your project experience? 
-
+* This project was an excellent opportunity to understand how to collaborate on a project.
+* We learnt how to use feature branches merged into main once tested. That way, we could make sure we could collaborate without overwriting each other’s work.
 
 ## Main Data Analysis Libraries
 
-* Here you should list the libraries you used in the project and provide an example(s) of how you used these libraries.
+### ETL
+* os
+* numpy
+* pandas
+* matplotlib
+    * .pyplot
+* seaborn
+
+### EDA
+* os
+* numpy
+* pandas
+* matplotlib
+    * .pyplot
+* seaborn
+* scipy
+    * .stats
+
+### Visualisation Features
+* joblib
+* numpy
+* pandas
+* plotly
+    * .express
+    * .graph_objects
+
+### Machine Learning
+* joblib
+* pandas
+* matplotlib
+    * .pyplot
+* seaborn
+* sklearn
+    * .compose - ColumnTransformer
+    * .impute - SimpleImputer
+    * .linear_model - LogisticRegression
+    * .metrics - accuracy_score, classification_report, roc_auc_score
+    * .model_selection - train_test_split
+    * .pipeline - Pipeline
+    * .preprocessing - OneHotEncoder, StandardScaler
 
 ## Credits
 
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials; however, it is important to be very specific about these sources to avoid plagiarism. 
-* You can break the credits section into Content and Media, depending on what you include in your project. 
+### Use of Generative AI
+* Generative AI was used in this project as a support troubleshooting, for unfamiliar processes and for content suggestions.
 
 ### Content 
 
-- The text for the Home page was taken from the Wikipedia Article A
-- Instructions on how to implement form validation were taken from a [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
+* Credit to Rory from Code Institute for the **D-I-S-H** acronym and for taking us through a step-by-step process for ETL, particularly with regards to IQR analysis for handling outliers.
+* Credit to the Code Institute LMS and Rory for support with the Machine Learning section.
+* Heroku has enabled us with Student account to deploy our PeoplePulse App.
+* Project Kanban Board provided by GitHub for project management. 
+* Discord for enabling group discussion. 
 
 ### Media
 
-- The photos used on the home and sign-up page are from This Open-Source site
-- The images used for the gallery page were taken from this other open-source site
+* The image used in this README.md is from Code Institute.
 
-## Acknowledgements (optional)
+## Acknowledgements
 
-* Thank the people who supported this project.
+* Thank you to Code Institute and to our great cohort!
